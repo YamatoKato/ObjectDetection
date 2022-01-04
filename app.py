@@ -6,6 +6,7 @@ from msrest.authentication import CognitiveServicesCredentials
 from array import array
 import os
 from PIL import Image
+import pyheif
 import sys
 import time
 import json
@@ -51,12 +52,15 @@ st.title("画像からオブジェクトを検出するツール")
 st.caption("※本ツールはMicrosoft AzureのComputer Vision APIを使用しています✌︎")
 
 #fileをアップロードする,そして表示する
-uploaded_file = st.file_uploader("検出する画像を選んでください",type=None)
+uploaded_file = st.file_uploader("検出する画像を選んでください。(JPG,PNG限定)",type=["jpg","png"])
 if uploaded_file is not None:
     
     #読み込んだ画像ファイルをpathに変換する
     img_path = f"img/{uploaded_file.name}" #pathを作る
-    img = Image.open(uploaded_file)
+    try:
+        img = Image.open(uploaded_file)
+    except:
+        st.error('ファイルの型が不正です。')
     img.save(img_path) #保存
     objects = detect_objects(img_path)
     
@@ -85,5 +89,7 @@ if uploaded_file is not None:
     st.markdown("**認識されたコンテンツタグ**")  #マークダウン方式で太字にする
     st.markdown(f"> {tags_name}")
     
+
+
 
 
