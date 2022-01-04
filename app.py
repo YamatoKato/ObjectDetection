@@ -6,7 +6,6 @@ from msrest.authentication import CognitiveServicesCredentials
 from array import array
 import os
 from PIL import Image
-import pyheif
 import sys
 import time
 import json
@@ -42,23 +41,6 @@ def detect_objects(filepath):
     return objects
 
 
-#heicからpng
-def heic_png(image_path):
-    new_name = image_path.replace('HEIC', 'png')
-    # HEICファイルpyheifで読み込み
-    heif_file = pyheif.read(image_path)
-    # 読み込んだファイルの中身をdata変数へ
-    data = Image.frombytes(
-        heif_file.mode,
-        heif_file.size,
-        heif_file.data,
-        "raw",
-        heif_file.mode,
-        heif_file.stride,
-        )
-    # pngで保存
-    return data.save(new_name, "PNG")
-
 
 #=====================Streamlitで作成==============================
 import streamlit as st
@@ -71,12 +53,13 @@ st.caption("※本ツールはMicrosoft AzureのComputer Vision APIを使用し�
 #fileをアップロードする,そして表示する
 uploaded_file = st.file_uploader("検出する画像を選んでください",type=None)
 if uploaded_file is not None:
-    img = Image.open(uploaded_file)
     
     #読み込んだ画像ファイルをpathに変換する
     img_path = f"img/{uploaded_file.name}" #pathを作る
+    img = Image.open(uploaded_file)
     img.save(img_path) #保存
     objects = detect_objects(img_path)
+    
     
     #描画
     draw = ImageDraw.Draw(img)
@@ -102,36 +85,5 @@ if uploaded_file is not None:
     st.markdown("**認識されたコンテンツタグ**")  #マークダウン方式で太字にする
     st.markdown(f"> {tags_name}")
     
-else:
-    heic_png(uploaded_file)
-    
-    img = Image.open(uploaded_file)
-    
-    #読み込んだ画像ファイルをpathに変換する
-    img_path = f"img/{uploaded_file.name}" #pathを作る
-    img.save(img_path) #保存
-    objects = detect_objects(img_path)
-    
-    #描画
-    draw = ImageDraw.Draw(img)
-    for object in objects:
-        x = object.rectangle.x  #座標取得
-        y = object.rectangle.y
-        w = object.rectangle.w
-        h = object.rectangle.h
-        caption = object.object_property
-        
-        font = ImageFont.truetype(font="./Helvetica 400.ttf",size=50) #font情報作成
-        text_w,text_h = draw.textsize(caption,font=font)
-        
-        draw.rectangle([(x,y),(x+w, y+h)], fill=None ,outline="red",width=4) #外枠
-        draw.rectangle([(x,y),(x+text_w, y+text_h)], fill="Red") #枠の左上にobject名表示場所
-        draw.text((x,y),caption,fill="white",font=font) #object名表示
-        
-    st.image(img)
-    
-    #認識されたコンテンツタグの表示
-    tags_name = get_tags(img_path)
-    tags_name = ", ".join(tags_name)
-    st.markdown("**認識されたコンテンツタグ**")  #マークダウン方式で太字にする
-    st.markdown(f"> {tags_name}")
+
+
