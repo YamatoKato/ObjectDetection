@@ -1,4 +1,4 @@
 streamlit
-PIL
+Pillow==8.4.0
 azure
 msrest
