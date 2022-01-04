@@ -6,7 +6,6 @@ from msrest.authentication import CognitiveServicesCredentials
 from array import array
 import os
 from PIL import Image
-import pyheif
 import sys
 import time
 import json
