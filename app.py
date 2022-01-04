@@ -51,7 +51,7 @@ st.title("画像からオブジェクトを検出するツール")
 st.caption("※本ツールはMicrosoft AzureのComputer Vision APIを使用しています✌︎")
 
 #fileをアップロードする,そして表示する
-uploaded_file = st.file_uploader("検出する画像を選んでください。(JPG,PNG限定)",type=["jpg","png"])
+uploaded_file = st.file_uploader("検出する画像を選んでください。(JPG,PNG限定)",type=["jpeg","jpg","png"])
 if uploaded_file is not None:
     
     #読み込んだ画像ファイルをpathに変換する
