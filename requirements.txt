@@ -1,4 +1,4 @@
 streamlit
 Pillow==8.4.0
-azure
+azure-cognitiveservices-vision-computervision
 msrest
