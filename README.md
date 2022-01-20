@@ -1,36 +1,14 @@
-# ObjectDetection
-![image](https://d20r2glx6euv0l.cloudfront.net/editor/0bea064010fb16da.jpg)
-![image](https://d20r2glx6euv0l.cloudfront.net/thumbnail/293f828a7810306c.png)
+# 物体検出Webアプリ
+![image](https://assets.st-note.com/production/uploads/images/69213029/picture_pc_382b94454da23c534e51a5f7f32b8049.png?width=800)
+![image](https://assets.st-note.com/production/uploads/images/69213416/picture_pc_13306345d44a3041b8266f49b83da44c.png?width=800)
 
 **1. 制作物の動作概要**
 
-ラズパイにngrokとWebhhokを利用してLINEmessagingAPIが動作する環境を用意し、デバイス(スマホやPC)から「LINEトーク」の対話形式でラズベリーパイにコマンドを送るシステム。
+読み込んだ画像ファイルからAzureのComputer VisionAPIを用いてオブジェクト(物体)の検出を行うアプリ。
 
-今回用意したコマンドは「モーションカメラ」,「ラズパイCPU温度測定」,「カチューシャ(サウンド)」,「じゃんけん(ミニゲーム)」,「人感センサー」,「カメラ(撮影)」の6つ。
 
 **2.使用した技術**
 
-・ngrok
-
-・Webhook
-
-・LINEmessagingAPI
-
+・Streamlit
+・AzureのComputer VisionAPI
 ・Python3.x
-
-
-**3.用意した機器**
-
-・RasberryPiZero
-
-・ブレッドボード
-
-・ジャンパー
-
-・人感センサー
-
-・ブザー
-
-・RasberryPiカメラ
-
-・スマートフォン(LINE)
